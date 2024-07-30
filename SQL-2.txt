@@ -1,0 +1,122 @@
+1. Запрос на получение всех студентов и курсов, на которые они записаны.
+
+SELECT s.id, s.first_name, c.ID, c.Course_name
+FROM Students s
+LEFT JOIN  Enrollments e ON s.ID = e.ID
+LEFT JOIN Courses c ON e.ID = c.ID
+ORDER BY  s.ID, c.ID
+
+2. Запрос на получение всех курсов и преподавателей, которые их преподают
+
+SELECT 
+    c.id AS course_id, 
+    course_name AS course_name, 
+    t.id AS teacher_id, 
+    first_name AS teacher_name
+FROM 
+    Courses c
+LEFT JOIN 
+    Teachers t ON c.id = t.id
+
+3.Запрос на получение всех записей студентов на курсы и их оценок
+
+SELECT first_name, course_name, grade         
+FROM 
+    Enrollments
+JOIN 
+    Students ON Enrollments.student_id = student_id      
+JOIN 
+    Courses ON Enrollments.course_id = course_id
+
+
+4.Запрос на получение всех преподавателей и курсов, которые они ведут, включая курсы без преподавателей
+
+SELECT 
+    t.id AS teacher_id,      
+    first_name AS teacher_name, 
+    c.id AS course_id,        
+    course_name AS course_name  
+FROM 
+    courses c 
+    LEFT JOIN teachers t ON c.id = t.id
+
+
+
+5.Запрос на получение всех курсов и студентов, записанных на них, включая курсы без студентов
+
+SELECT course_id, course_name,
+student_id, first_name
+FROM
+    courses
+LEFT JOIN
+    enrollments ON course_id = enrollments.course_id
+LEFT JOIN
+    students ON enrollments.student_id = student_id
+ORDER BY
+    course_id, student_id
+
+
+6.Запрос на получение всех студентов и курсов, на которые они записаны, включая студентов без записей на курсы
+
+SELECT course_id,course_name, student_id, first_name  
+         
+FROM
+    courses
+LEFT JOIN
+    enrollments ON course_id = enrollments.course_id
+LEFT JOIN
+    students ON enrollments.student_id = student_id
+ORDER BY
+    course_id,  student_id
+
+
+7.Запрос на получение всех курсов и расписания занятий по ним
+
+SELECT course_name,  class_date,  classroom      
+          
+FROM 
+    courses
+JOIN 
+    Schedule ON courses.id = course_id   
+ ORDER BY 
+    course_name, class_date
+
+
+
+8.Запрос на получение всех студентов и их оценок по курсам, включая студентов без оценок
+
+SELECT  first_name, Course_Name, Grade
+FROM 
+    Students s
+CROSS JOIN 
+    Courses c
+LEFT JOIN 
+    Enrollments g ON s.ID = g.ID AND c.ID = g.ID
+ORDER BY 
+    first_name, Course_Name
+
+
+9.Запрос на получение всех курсов и преподавателей, которые их ведут, включая курсы без преподавателей
+
+SELECT c.id, c.course_name, t.id, first_name        
+FROM
+    courses c             
+LEFT JOIN
+    teachers t             
+ON
+    c.id = t.id
+
+
+10.Запрос на получение всех преподавателей и курсов, которые они ведут, включая преподавателей без курсов
+
+SELECT t.id,  first_name, c.id, c.course_name           
+FROM 
+    teachers t                
+LEFT JOIN 
+    courses c            
+ON 
+    t.id = c.id
+
+
+
+
